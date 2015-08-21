@@ -79,7 +79,7 @@
 
 <!-- Cleaning The Folders -->
 <target name="clean" description="Cleaning The Structure" depends="package">
-<delete file="${svn}"/>
+<delete dir="${svn}"/>
 </target>
 
 </project>
