@@ -1,0 +1,83 @@
+<project name="svn" basedir="." default="clean">
+
+<property name="svn" value="E:/svn"/>
+<property name="src" value="${svn}/src_file"/>
+<property name="class" value="${svn}/class_file"/>
+<property name="db" value="${svn}/database_file"/>
+<property name="text" value="${svn}/text_files"/>
+<property name="prop" value="${svn}/property_files"/>
+<property environment="env"/>
+
+<!-- Checkout in SVN -->
+
+<path id="svnant.classpath">
+<pathelement location="C:\Program Files\Apache Software Foundation\apache-ant-1.9.6\lib"/>
+<fileset dir="C:\Program Files\Apache Software Foundation\apache-ant-1.9.6\lib">
+<include name="svnant.jar"/>
+</fileset>
+</path>
+
+<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.classpath" /> 
+
+<target name="checkout" description="Checkout the SVN using SVNANT.jar">
+<svn username="Murali" password="murali">
+<checkout url="https://Murali-PC/svn/svnjenkins/trunk/airtel" destPath="E:/workingcopy"/>
+</svn>
+ </target>
+
+
+<!-- Creating Structure -->
+
+<target name="create" descripton="Creating Structure" depends="checkout"/>
+<mkdir dir="${svn}"/>
+<mkdir dir="${src}"/>
+<mkdir dir="${class}"/>
+<mkdir dir="${db}"/>
+<mkdir dir="${text}"/>
+<mkdir dir="${prop}"/>
+</target>
+
+<!-- Copying The Files -->
+<target name="copy" description="Copying files" depends="create">
+<copy todir="${src}">
+<fileset dir="E:\svnjenkins\trunk\airtel">
+<include name="**/*.java"/>
+</fileset>
+</copy>
+
+<copy todir="${txt}">
+<fileset dir="E:\svnjenkins\trunk\airtel">
+<include name="**/*.txt"/>
+</fileset>
+</copy>
+
+<copy todir="${prop}">
+<fileset dir="E:\svnjenkins\trunk\airtel">
+<include name="**/*.properties"/>
+</fileset>
+</copy>
+
+<copy todir="${db}">
+<fileset dir="E:\svnjenkins\trunk\airtel">
+<include name="**/*.database"/>
+</fileset>
+</copy>
+
+</target>
+
+<!-- Compiling Java Files -->
+<target name="compile" description="Copying files" depends="copy">
+<javac srcdir="${src}" destdir="${class}" includeantruntime="false"/>
+</target>
+
+<!-- Packaging The Class Files -->
+<target name="package" description="Packaging The Class Files" depends="compile">
+<war destfile="C:\Program Files\Apache Software Foundation\Tomcat 8.0\webapps/classfile.war" basedir="${class}" needxmlfile="false"/>
+</target>
+
+<!-- Cleaning The Folders -->
+<target name="clean" description="Cleaning The Structure" depends="package">
+<delete file="${svn}"/>
+</target>
+
+</project>
