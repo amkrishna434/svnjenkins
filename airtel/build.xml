@@ -6,9 +6,11 @@
 <property name="db" value="${svn}/database_file"/>
 <property name="text" value="${svn}/text_files"/>
 <property name="prop" value="${svn}/property_files"/>
-<property environment="env"/>
 
-<!-- Checkout in SVN -->
+
+<!-- <property environment="env"/>
+
+ Checkout in SVN
 
 <path id="svnant.classpath">
 <pathelement location="C:\Program Files\Apache Software Foundation\apache-ant-1.9.6\lib"/>
@@ -23,12 +25,12 @@
 <svn username="Murali" password="murali">
 <checkout url="https://Murali-PC/svn/svnjenkins/trunk/airtel" destPath="E:/workingcopy"/>
 </svn>
- </target>
+ </target> -->
 
 
 <!-- Creating Structure -->
 
-<target name="create" description="Creating Structure" depends="checkout">
+<target name="create" description="Creating Structure">
 <mkdir dir="${svn}"/>
 <mkdir dir="${src}"/>
 <mkdir dir="${class}"/>
