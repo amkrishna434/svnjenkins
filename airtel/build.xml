@@ -28,7 +28,7 @@
 
 <!-- Creating Structure -->
 
-<target name="create" descripton="Creating Structure" depends="checkout">
+<target name="create" description="Creating Structure" depends="checkout">
 <mkdir dir="${svn}"/>
 <mkdir dir="${src}"/>
 <mkdir dir="${class}"/>
